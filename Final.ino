@@ -118,7 +118,7 @@ void current()
  int i=0;
   
    for(i=0;i<app;i++){
-    b[i]=a[i]/220;
+    b[i]=a[i]/220;  // For 220 volt supply
    }
 }
 
