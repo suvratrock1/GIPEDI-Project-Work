@@ -1,7 +1,7 @@
 
     const int analogIn = A0;
    
-    int mVperAmp = 100; // use 100 for 20A Module and 66 for 30A Module
+    int mVperAmp = 100; 
     int RawValue= 0;
     int ACSoffset = 2500;
     double Voltage = 0;
@@ -24,10 +24,11 @@ void setup()
 void loop()
 {
   unsigned long ctime=millis();
+  
   RawValue = analogRead(analogIn);
   Voltage = (RawValue / 1023.0) * 5000; // Gets you mV
   Amps = ((Voltage - ACSoffset) / mVperAmp);
-  Amps=Amps+0.12;
+  Amps=Amps+0.12; //Error Correction
    if(Amps<0)
   {
     Amps=Amps*(-1);
@@ -38,10 +39,11 @@ int n;
 
 for(r=1;r<=app;r++){
  n=app;
-ga(b,n,r);
+ga(b,n,r); // Gets all the non-repetitive combinations of the current consumption
+           //of the entered appliances
 }
 
-
+// After 60000 milli seconds the result is displayed
 if((ctime-ptime)>60000){
   result();
    ptime=ctime;
@@ -71,7 +73,7 @@ void check(double sum, int ind[],int r){
 int j;
 
 
-if(Amps<sum+0.07 && Amps>sum-0.05){for(j=0;j<r;j++){c[ind[j]]=c[ind[j]]+1;delay(1000);} }
+if(Amps<sum+0.08 && Amps>sum-0.05){for(j=0;j<r;j++){c[ind[j]]=c[ind[j]]+1;delay(1000);} }
 
 }
 
